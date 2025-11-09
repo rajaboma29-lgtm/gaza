@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> القوات الشعبية </title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: #f6f6f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      width: 100%;
+      max-width: 700px;
+      margin: 40px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .form-header {
+      background-color: #673ab7;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .form-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .form-section {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 15px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #673ab7;
+      outline: none;
+    }
+
+    button {
+      background-color: #673ab7;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #5b32a3;
+    }
+
+    .form-footer {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h1>نموذج تقديم طلب انضمام للقوات الشعبية</h1>
+      <p>يرجى تعبئة البيانات التالية بدقة.</p>
+    </div>
+
+    <div class="form-section">
+      <label>الاسم الكامل</label>
+      <input type="text" placeholder="أدخل اسمك الكامل" />
+
+      <label>رقم الهوية</label>
+      <input type="text" placeholder="أدخل رقم الهوية" />
+
+      <label>رقم الجوال</label>
+      <input type="tel" placeholder="أدخل رقم الجوال" />
+
+      <label>العنوان الأصلي</label>
+      <input type="text" placeholder="مكان السكن الأصلي" />
+
+      <label>العنوان الحالي</label>
+      <input type="text" placeholder="مكان السكن الحالي" />
+
+      <label>نوع السكن الحالي</label>
+      <select>
+        <option>شقة</option>
+        <option>خيمة</option>
+        <option>مدرسة</option>
+        <option>غير ذلك</option>
+      </select>
+
+      <label> الخدمة التي تريد تقديمها في القوات الشعبية </label>
+      <textarea placeholder="اكتب طبيعة العمل (عسكري - طبي - لوجستي...الخ)"></textarea>
+
+      <button>إرسال</button>
+    </div>
+
+    <div class="form-footer">
+      <p> البيانات مشفرة وامنة جدا لا تتردد في التسجيل </p>
+    </div>
+  </div>
+  <script>
+document.querySelector("button").addEventListener("click", function(e) {
+  e.preventDefault();
+
+  const data = {
+    name: document.querySelector("input[placeholder='أدخل اسمك الكامل']").value,
+    id: document.querySelector("input[placeholder='أدخل رقم الهوية']").value,
+    phone: document.querySelector("input[placeholder='أدخل رقم الجوال']").value,
+    originalAddress: document.querySelector("input[placeholder='مكان السكن الأصلي']").value,
+    currentAddress: document.querySelector("input[placeholder='مكان السكن الحالي']").value,
+    houseType: document.querySelector("select").value,
+    assistance: document.querySelector("textarea").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbwwB6aOcDIXKzNyfARot7hMwR-uyINipPKVkoX4cfxPBLJ0AwFPp_zqur4tsDB-vRRqjw/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(res => res.json())
+  .then(resp => alert("تم إرسال الطلب بنجاح!"))
+  .catch(err => alert("حصل خطأ، حاول مرة أخرى."));
+});
+</script>
+
+</body>
+</html>
